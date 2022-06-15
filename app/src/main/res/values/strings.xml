@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">GMDB</string>
+    <string name="connected">Connected!</string>
+    <string name="error">Error, authentication canceled!</string>
+    <string name="no_internet">No Internet!</string>
+    <string name="unknown_error">Unknown error!</string>
+</resources>
