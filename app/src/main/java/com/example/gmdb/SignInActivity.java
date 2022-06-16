@@ -1,11 +1,14 @@
 package com.example.gmdb;
 
+import static android.content.ContentValues.TAG;
+
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import com.example.gmdb.commons.Utils;
@@ -20,6 +23,8 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.example.gmdb.commons.Utils.*;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class SignInActivity extends AppCompatActivity {
 
@@ -103,5 +108,15 @@ public class SignInActivity extends AppCompatActivity {
         setContentView(R.layout.activity_sign_in);
 
         initUI();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        Log.i(TAG, "onStart: " + currentUser);
+        if (currentUser != null){
+            startActivity(new Intent(SignInActivity.this, HomeActivity.class));
+        }
     }
 }

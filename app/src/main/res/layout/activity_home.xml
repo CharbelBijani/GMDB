@@ -1,53 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/cv_mainLayout"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_margin="8dp"
-    app:cardCornerRadius="10dp"
+    android:layout_height="match_parent"
     tools:context=".HomeActivity">
 
-    <LinearLayout
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/shape_cardview"
-        android:orientation="horizontal"
-        android:padding="8dp">
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme" />
 
-        <ImageView
-            android:id="@+id/tv_affiche"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_margin="3dp"
-            android:layout_weight="0"
-            tools:srcCompat="@tools:sample/avatars" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="3dp"
-            android:layout_marginTop="20dp"
-            android:layout_weight="0"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/tv_titre"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="2dp"
-                android:text="Titre du film"
-                android:textColor="@color/black"
-                android:textSize="@dimen/default_title_size" />
-
-            <TextView
-                android:id="@+id/tv_synopsis"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="2dp"
-                android:ellipsize="end"
-                android:text="Product description : il etait une fois dans le far far galaxy" />
-        </LinearLayout>
-    </LinearLayout>
-</androidx.cardview.widget.CardView>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_films"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_margin="2dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        tools:layout_editor_absoluteX="0dp" />
+</androidx.constraintlayout.widget.ConstraintLayout>

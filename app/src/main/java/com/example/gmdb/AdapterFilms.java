@@ -1,5 +1,7 @@
 package com.example.gmdb;
 
+import android.content.Context;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -8,6 +10,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -24,14 +29,37 @@ public class AdapterFilms extends FirestoreRecyclerAdapter<ModelFilms, AdapterFi
     }
 
     @Override
-    protected void onBindViewHolder(@NonNull FilmsViewHolder holder, int position, @NonNull ModelFilms model) {
+    protected void onBindViewHolder(@NonNull FilmsViewHolder filmViewHolder, int position, @NonNull ModelFilms model) {
+        String affiche = model.getAffiche();
+        String titre = model.getTitre();
+        String synopsis = model.getSynopsis();
 
+        filmViewHolder.tv_titre.setText(titre);
+        filmViewHolder.tv_synopsis.setText(synopsis);
+        // Ajout des options pour afficher les affiches
+        RequestOptions options = new RequestOptions()
+                .centerCrop()
+                .error(R.drawable.ic_movies)
+                .placeholder(R.drawable.ic_movies);
+
+        Context context = filmViewHolder.iv_Affiche.getContext();
+        Glide.with(context)
+                .load(affiche)
+                .apply(options)
+                .fitCenter()
+                .override(150,150)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .into(filmViewHolder.iv_Affiche);
     }
 
     @NonNull
     @Override
     public FilmsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return null;
+        View view = LayoutInflater
+                .from(parent.getContext())
+                .inflate(R.layout.item_film, parent, false);
+
+        return new FilmsViewHolder(view);
     }
 
     public class FilmsViewHolder extends RecyclerView.ViewHolder {

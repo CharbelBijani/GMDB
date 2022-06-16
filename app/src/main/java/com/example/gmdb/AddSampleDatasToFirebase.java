@@ -1,5 +1,7 @@
 package com.example.gmdb;
 
+import static com.example.gmdb.commons.NodesNames.*;
+
 import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -34,18 +36,6 @@ public class AddSampleDatasToFirebase extends Application {
     private static final String dataFile = "datas.txt";
     private static final String separator = ";"; // Le séparateur dans les fichiers de données
 
-    // Les clés pour l'association des colonnes dans la base de données **/
-    private static final String KEY_TITRE = "titre";
-    private static final String KEY_TITRE_MINUSCULE = "titre_minuscule";
-    private static final String KEY_ANNEE = "annee";
-    private static final String KEY_ACTEURS = "acteurs";
-    private static final String KEY_AFFICHE = "affiche";
-    private static final String KEY_SYNOPSIS = "synopsis";
-
-    // Les varibles lièes aux emplacements de stockage de Firebase
-    private static final String collection = "products";
-    private static final String imageFolder = "productsImages";
-
     /**
      * Variables Globales des clés de bases
      **/
@@ -54,8 +44,8 @@ public class AddSampleDatasToFirebase extends Application {
 
     private static String urlStorageAffiche;
 
-    public static CollectionReference productsRef = FirebaseFirestore.getInstance().collection(collection);
-    public static StorageReference storageRef = FirebaseStorage.getInstance().getReference(imageFolder);
+    public static CollectionReference productsRef = FirebaseFirestore.getInstance().collection(TABLE_FILMS);
+    public static StorageReference storageRef = FirebaseStorage.getInstance().getReference(IMAGE_FOLDER);
 
     /**
      * Méthode pour parser les données du fichier texte puis les envoyer vers FireBase
@@ -161,7 +151,7 @@ public class AddSampleDatasToFirebase extends Application {
                     SharedPreferences sharedPreferences = context.getSharedPreferences(filePrefs, Context.MODE_PRIVATE);
                     SharedPreferences.Editor editor = sharedPreferences.edit();
                     // On place le boolean de embeddedDataInserted à true pour dire qu'il n'est pas vide
-                    editor.putBoolean("dataInsertIntoFireBase", true);
+                    editor.putBoolean(UPLOAD_PREFS, true);
                     editor.commit();
                 } catch (IOException e) {
                     e.printStackTrace();
